@@ -1,0 +1,25 @@
+.celeb-button, #topic-input, #add-topic{
+    background-color:lightblue;
+}
+
+#topic-view{
+    background-color: wheat;
+}
+
+@media screen and (max-width: 980px) {
+    #topic-view{
+          background-color: #4aaaa5;
+      }
+    }
+
+    @media screen and (max-width: 980px) {
+        body{
+              background-color: brown;
+          }
+        }    
+
+        @media screen and (max-width: 980px) {
+            body{
+                  background-color:springgreen;
+              }
+            }        

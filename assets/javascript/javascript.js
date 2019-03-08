@@ -1,8 +1,8 @@
 // Initial array of movies
-var topics =  [
-	"ivanka trump",
-	"kerry washington",
-	"olivia munn",
+var topics = [
+	"ronaldo",
+	"messi",
+	"lebron James",
 	"keira knightley",
 	"natalie portman",
 	"scarlett johansson",
@@ -22,88 +22,100 @@ var topics =  [
 	"jamie chung"
 ];
 
-$("#topic-view").empty();
-for(i=0; i< topics.length; i++){
-
-var a = $("<button>");
-a.addClass("celeb-button")
-a.attr("data-name", topics[i]);
-a.text(topics[i]);
-$("#buttons-view").append(a);
+for (var i = 0; i < topics.length; i++) {
+	var button = $("<button>").text(topics[i]);
+	button.attr("data-celeb", topics[i]);
+	button.addClass("celeb-button")
+	$("#buttons-view").append(button);
 }
 
+//this function will let the user to add their favorite celebrity and it prevents the user to add the same person twice
 
+$("#add-celeb").on("click", function (event) {
+	event.preventDefault();
 
-$("#add-topic").on("click", function(event) {
-    event.preventDefault();
-
-    var exist = false;
-	if(topics.indexOf($("#topic-input").val()) !== -1) {
+	var exist = false;
+	if (topics.indexOf($("#newCeleb-input").val()) !== -1) {
 		exist = true;
 	}
-	if($("#topic-input").val() !== "" && exist === false) {
-		var newCeleb = $("#topic-input").val().toLowerCase();
+	else if ($("#newCeleb-input").val() !== "" && exist === false) {
+		var newCeleb = $("#newCeleb-input").val().toLowerCase();
+
 		topics.push(newCeleb);
+
 		var button = $("<button>").text(newCeleb);
+
 		button.attr("data-celeb", newCeleb);
+
 		button.addClass("celeb-button");
 		$("#buttons-view").append(button);
 
-}
-	$("#topic-input").val("");
+	}
+	$("#newCeleb-input").val("");
 });
+
+
+
 
 // this function displays the gify images when clicked
+$(document).on("click", ".celeb-button", function () {
 
-$(document).on("click", ".celeb-button", function() {
-	var celeb = $(this).attr("data-babe");
-	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-        celeb + "&api_key=wScGTRx7pLpVHN7HmwsyQN1B2p7MWPNr&limit=10";
+	var celeb = $(this).attr("data-celeb");
 
-    $.ajax({
-    	url: queryURL,
-    	method: "GET"
-    }).done(function(response) {
-    	var results = response.data;
-    	// console.log(results);
-console.log(results);
+	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + celeb + "&api_key=wScGTRx7pLpVHN7HmwsyQN1B2p7MWPNr&limit=10";
+	$.ajax({
+		url: queryURL,
+		method: "GET"
+	}).then(function (response) {
+		var results = response.data;
+		// console.log(results) for testing;
+		console.log(results);
 
-var results = $("<section class='results'>");
-    
-        for(var i = 0; i < results.length; i++) {
-    		var resultDiv = $("<div class='result-div'>");
-    		
-    		var rating = results[i].rating;
+		// creating anew variable to hold the whole results
+		var resultsCountainer = $("<section class='result-container'>")
+		for (var i = 0; i < results.length; i++) {
 
-            var p = $("<p>").text("Rating: " + rating);
-            
-            var celebImg = $("<img class='result'>");
-			celebImg.attr("src", results[i].images.fixed_height.url);
-            celebImg.attr("data-state", "still");
-    		celebImg.attr("data-still", results[i].images.fixed_heighturl);
-    		celebImg.attr("data-animate", results[i].images.fixed_height.url);
+			// Creating a div for the one gif result
+			var gifDiv = $("<div class='result-container'>");
 
-    		resultDiv.prepend(celebImg);
-    		resultDiv.prepend(p);
+			var rating = results[i].rating;
 
-    		results.prepend(resultDiv);
-    	}
+			var p = $("<p>").text("Rating: " + rating);
 
-    	$("#topic-view").prepend(results);
-    }
-    )
+
+			// Creating an image tag
+			var celebImage = $("<img class='result'>");
+
+			// Giving the image tag an src attribute of a proprty pulled off the
+			// result item
+			celebImage.attr("src", results[i].images.fixed_height_still.url);
+			celebImage.attr("data-state", "still");
+			celebImage.attr("data-still", results[i].images.fixed_height_still.url);
+			celebImage.attr("data-animate", results[i].images.fixed_height.url);
+
+
+			// Appending the paragraph and celebImage we created to the "gifDiv" div we created
+			gifDiv.prepend(celebImage);
+			gifDiv.prepend(p);
+
+
+			resultsCountainer.prepend(gifDiv);
+		}
+		$("#topic-view").prepend(resultsCountainer);
+	});
 });
 
-
-
-$(document).on("click", ".celeb-button", function() {
+// this function pauses the gif when clicked and starts moving when clicked again
+$(document).on("click", ".result", function () {
 	var state = $(this).attr("data-state");
 
-	if(state === "still") {
-        $(this).attr("src", $(this).attr("data-animate"));
-        $(this).attr("data-state", "animate");
-      } else {
-        $(this).attr("src", $(this).attr("data-still"));
-        $(this).attr("data-state", "still");
-    }
+	if (state === "still") {
+		$(this).attr("src", $(this).attr("data-animate"));
+		$(this).attr("data-state", "animate");
+	} else {
+		$(this).attr("src", $(this).attr("data-still"));
+		$(this).attr("data-state", "still");
+	}
 });
+
+
