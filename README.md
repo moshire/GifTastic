@@ -48,3 +48,7 @@ Using JQUIRY AJAX method to make request to the server-side Api was my challenge
 ## Gif
 ![GifTastic App Gif](assets/images/gif.gif)
 
+## Live Demo
+[Click here to experience the GifTastic App!](https://moshire.github.io/GifTastic/)
+
+
