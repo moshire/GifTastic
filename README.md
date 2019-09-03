@@ -39,3 +39,10 @@ Using JQUIRY AJAX method to make request to the server-side Api was my challenge
 
 8. **Rejoice**! You just made something really cool.
 
+## How It Works
+* First, click any celebrity you like.
+* Next, click the gif image that page displayed to animate the gif.
+* Next, click the animated gif to make it stop.
+* Last, add your favorite celebrity name and see the gif.
+
+
