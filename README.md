@@ -45,4 +45,6 @@ Using JQUIRY AJAX method to make request to the server-side Api was my challenge
 * Next, click the animated gif to make it stop.
 * Last, add your favorite celebrity name and see the gif.
 
+## Gif
+![GifTastic App Gif](assets/images/gif.gif)
 
