@@ -51,4 +51,11 @@ Using JQUIRY AJAX method to make request to the server-side Api was my challenge
 ## Live Demo
 [Click here to experience the GifTastic App!](https://moshire.github.io/GifTastic/)
 
+## Contributing Guidelines
+All contributions and suggestions are welcome! For direct contributions, please fork the repository and file a pull request.
+
+## Contact
+* shire625@gmail.com
+
+
 
